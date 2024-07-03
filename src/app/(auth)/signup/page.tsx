@@ -15,7 +15,7 @@ const page = () => {
   const { data: session } = useSession();
 
   if (session) {
-    router.push("/");
+    router.push("/app");
   }
 
   const handleSubmit = async (e: any) => {
@@ -80,8 +80,8 @@ const page = () => {
         <h1 className="text-5xl font-extrabold  text-left">Sign Up</h1>
         <div className="flex flex-col gap-4">
           <form onSubmit={handleSubmit}>
-            {inputs.map((input) => (
-              <div className="flex flex-col gap-4">
+            {inputs.map((input, index) => (
+              <div key={index} className="flex flex-col gap-4">
                 <Label> {input.placeholder}</Label>
                 <Input
                   type={input.type}

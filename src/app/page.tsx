@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { authOptions } from "@/lib/auth";
+import runChat from "@/lib/gemini";
 import { ChevronRight } from "lucide-react";
 import { getServerSession } from "next-auth";
 import Image from "next/image";

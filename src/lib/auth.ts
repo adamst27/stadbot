@@ -12,11 +12,11 @@ export const authOptions = {
 
       async authorize(credentials: any): Promise<any> {
         const { email, password } = credentials;
-
+        console.log(email, password);
         try {
           await connectToDB();
           const user = await User.findOne({ email });
-
+          console.log(user);
           if (!user) {
             return null;
           }
