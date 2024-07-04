@@ -1,3 +1,4 @@
+"use server";
 import runChat from "@/lib/gemini";
 import Chat from "@/models/Chat";
 import { connectToDB } from "@/utils/database";
@@ -32,7 +33,7 @@ export async function startChat(chatName: string) {
   try {
     await connectToDB();
     const newChat = await Chat.create({ name: chatName, messages: [] });
-    return newChat;
+    return JSON.parse(JSON.stringify(newChat));
   } catch (error) {
     console.error(error);
   }

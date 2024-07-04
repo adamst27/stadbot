@@ -1,3 +1,5 @@
+import { getChats } from "@/actions";
+import Display from "@/components/display";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { authOptions } from "@/lib/auth";
@@ -7,30 +9,28 @@ import React from "react";
 
 const pqge = async () => {
   const session = await getServerSession(authOptions);
-  const chats = undefined;
+  const chats = await getChats();
   console.log(session);
+  console.log(chats);
   return (
     <section className="min-h-screen bg-neutral-900 backdrop-blur-lg backdrop-filter">
       <div className="grid grid-cols-[450px_1fr]">
-        <div className="flex flex-col gap-6 p-20 border-r border-gray-800">
+        <div className="flex flex-col gap-6 p-20 border-r h-screen border-gray-800 overflow-y-scroll">
           <h1 className="text-4xl font-extrabold text-white">Chats</h1>
           <div className="flex flex-col gap-4">
             {chats &&
               chats?.map((chat: any, index: number) => (
-                <p key={index}>{chat.name}</p>
+                <p
+                  className="rounded-lg bg-gray-800 text-white p-4"
+                  key={index}
+                >
+                  {chat.name}
+                </p>
               ))}
           </div>
         </div>
         <div className="h-screen bg-neutral-900">
-          <div className="grid grid-rows-[1fr_50px] p-6 h-screen">
-            <div>
-              <p>chats</p>
-            </div>
-            <div className="flex items-center">
-              <Input placeholder="Type your prompt" />
-              <Button className="px-8 py-2 text-md">Generate</Button>
-            </div>
-          </div>
+          <Display />
         </div>
       </div>
     </section>
