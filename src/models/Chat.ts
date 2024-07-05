@@ -7,14 +7,18 @@ const ChatSchema = new Schema({
   },
   messages: [
     {
-      input: {
+      in: {
         type: String,
       },
-      output: {
+      out: {
         type: String,
       },
     },
   ],
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 const Chat = models.Chat || model("Chat", ChatSchema);
