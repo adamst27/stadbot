@@ -7,7 +7,6 @@ import { getChatMessages, sendInput, startChat } from "@/actions";
 import { useSearchParams, useRouter } from "next/navigation";
 
 const Display = ({ values }: { values: any }) => {
-  const [isNewChat, setIsNewChat] = useState(true);
   const [messages, setMessages] = useState<Array<{ in: string; out: string }>>(
     []
   );
@@ -16,6 +15,14 @@ const Display = ({ values }: { values: any }) => {
   const router = useRouter();
   const chatId = params.get("chatId");
 
+  useEffect(() => {
+    if (chatId && values.length > 0) {
+      setMessages(values);
+    } else {
+      setMessages([]);
+    }
+  }, [chatId, values]);
+
   const handleClick = async () => {
     if (chatId) {
       const output = await sendInput(chatId, prompt);
@@ -23,25 +30,22 @@ const Display = ({ values }: { values: any }) => {
     } else {
       const newChat = await startChat(prompt);
       const output = await sendInput(newChat._id, prompt);
-      setMessages((prev) => [...prev, { in: prompt, out: output as string }]);
-      // Update URL with new chatId
+      setMessages([{ in: prompt, out: output as string }]);
       router.push(`?chatId=${newChat._id}`);
-      setIsNewChat(false);
     }
     setPrompt("");
   };
+
   const formatOutput = (output: string) => {
     const parts = output.split("```");
     return parts.map((part, index) => {
       if (index % 2 === 0) {
-        // Text content
         return part.split("\n").map((paragraph, pIndex) => (
           <p key={pIndex} className="mb-2">
             {paragraph}
           </p>
         ));
       } else {
-        // Code block
         return (
           <pre
             key={index}
@@ -57,36 +61,20 @@ const Display = ({ values }: { values: any }) => {
   return (
     <div className="flex flex-col h-screen bg-gradient-to-br from-gray-900 to-gray-800">
       <div className="flex-1 overflow-y-auto p-6 space-y-4">
-        {values.length > 0 &&
-          values.map((message: any, index: number) => (
-            <div key={index} className="flex flex-col space-y-2">
-              <div className="flex justify-end">
-                <div className="bg-blue-600 text-white rounded-lg py-2 px-4 max-w-[70%]">
-                  {message.in}
-                </div>
-              </div>
-              <div className="flex justify-start">
-                <div className="bg-gray-700 text-white rounded-lg py-2 px-4 max-w-[70%]">
-                  {formatOutput(message.out)}
-                </div>
+        {messages.map((message, index) => (
+          <div key={index} className="flex flex-col space-y-2">
+            <div className="flex justify-end">
+              <div className="bg-blue-600 text-white rounded-lg py-2 px-4 max-w-[70%]">
+                {message.in}
               </div>
             </div>
-          ))}
-        {messages &&
-          messages.map((message, index) => (
-            <div key={index} className="flex flex-col space-y-2">
-              <div className="flex justify-end">
-                <div className="bg-blue-600 text-white rounded-lg py-2 px-4 max-w-[70%]">
-                  {message.in}
-                </div>
-              </div>
-              <div className="flex justify-start">
-                <div className="bg-gray-700 text-white rounded-lg py-2 px-4 max-w-[70%]">
-                  {formatOutput(message.out)}
-                </div>
+            <div className="flex justify-start">
+              <div className="bg-gray-700 text-white rounded-lg py-2 px-4 max-w-[70%]">
+                {formatOutput(message.out)}
               </div>
             </div>
-          ))}
+          </div>
+        ))}
       </div>
       <div className="p-4 bg-gray-800">
         <div className="flex space-x-2">
