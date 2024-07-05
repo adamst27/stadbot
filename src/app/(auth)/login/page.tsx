@@ -4,10 +4,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-const page = () => {
+const Page = () => {
   const [data, setData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const handleSubmit = async (e: any) => {
@@ -79,7 +78,7 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
 
 const inputs = [
   {

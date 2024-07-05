@@ -65,13 +65,8 @@ const Block = ({ className, ...rest }: any) => {
 
 const HeaderBlock = () => (
   <Block className="col-span-12 row-span-2 md:col-span-6">
-    <img
-      src="https://api.dicebear.com/8.x/lorelei-neutral/svg?seed=John"
-      alt="avatar"
-      className="mb-4 size-14 rounded-full"
-    />
     <h1 className="mb-12 text-4xl font-medium leading-tight">
-      Hi, I'm Adam.{" "}
+      Hi, I&apos;m Adam.{" "}
       <span className="text-zinc-400">I built this website using NextJS</span>
     </h1>
     <a

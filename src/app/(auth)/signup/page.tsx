@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-const page = () => {
+const Page = () => {
   const [data, setData] = useState({ name: "", email: "", password: "" });
   const [error, setError] = useState("");
   const router = useRouter();
@@ -71,9 +71,6 @@ const page = () => {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
   return (
     <section className="w-full h-screen flex  flex-row-reverse items-center bg-slate-950 text-white">
       <div className="w-1/2 py-16 px-8 flex flex-col gap-8 h-full justify-center relative">
@@ -112,7 +109,7 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
 
 const inputs = [
   {
