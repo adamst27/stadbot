@@ -4,13 +4,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const page = () => {
   const [data, setData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
-
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     console.log(data);
@@ -21,11 +20,12 @@ const page = () => {
         password,
         redirect: false,
       });
-      console.log(res);
 
       if (res.error) {
         setError("Invalid Credentials");
         return;
+      } else {
+        window.location.href = "/app";
       }
     } catch (error) {
       console.log(error);
@@ -39,7 +39,7 @@ const page = () => {
       <div className="w-1/2 py-16 px-8 flex flex-col gap-8 h-full justify-center relative">
         <h1 className="text-5xl font-extrabold  text-left">Login</h1>
         <div className="flex flex-col gap-4">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             {inputs.map((input, index) => (
               <div key={index} className="flex flex-col gap-4">
                 <Label> {input.placeholder}</Label>

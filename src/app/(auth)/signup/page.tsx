@@ -79,7 +79,7 @@ const page = () => {
       <div className="w-1/2 py-16 px-8 flex flex-col gap-8 h-full justify-center relative">
         <h1 className="text-5xl font-extrabold  text-left">Sign Up</h1>
         <div className="flex flex-col gap-4">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             {inputs.map((input, index) => (
               <div key={index} className="flex flex-col gap-4">
                 <Label> {input.placeholder}</Label>

@@ -53,14 +53,25 @@ const Display = ({ values }: { values: any }) => {
       }
     });
   };
-  useEffect(() => {
-    if (values) {
-      setMessages((prev) => [...values, ...prev]);
-    }
-  });
+
   return (
     <div className="flex flex-col h-screen bg-gradient-to-br from-gray-900 to-gray-800">
       <div className="flex-1 overflow-y-auto p-6 space-y-4">
+        {values.length > 0 &&
+          values.map((message: any, index: number) => (
+            <div key={index} className="flex flex-col space-y-2">
+              <div className="flex justify-end">
+                <div className="bg-blue-600 text-white rounded-lg py-2 px-4 max-w-[70%]">
+                  {message.in}
+                </div>
+              </div>
+              <div className="flex justify-start">
+                <div className="bg-gray-700 text-white rounded-lg py-2 px-4 max-w-[70%]">
+                  {formatOutput(message.out)}
+                </div>
+              </div>
+            </div>
+          ))}
         {messages &&
           messages.map((message, index) => (
             <div key={index} className="flex flex-col space-y-2">
@@ -86,7 +97,7 @@ const Display = ({ values }: { values: any }) => {
             className="flex-1 bg-gray-700 text-white border-none focus:ring-2 focus:ring-blue-500"
           />
           <Button
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full transition duration-200 ease-in-out transform hover:scale-105"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition duration-200 ease-in-out transform hover:scale-105"
             onClick={handleClick}
           >
             Send
