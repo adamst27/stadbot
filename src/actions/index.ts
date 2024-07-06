@@ -47,11 +47,11 @@ export async function startChat(chatName: string) {
   }
 }
 
-export async function sendInput(chatId: string, input: string) {
+export async function sendInput(chatId: string, input: string, messages: any) {
   try {
     await connectToDB();
     const selectedChat = await Chat.findOne({ _id: chatId });
-    const output = await runChat(input);
+    const output = await runChat(input, messages);
     selectedChat?.messages.push({ in: input, out: output });
     await selectedChat?.save();
     return output;

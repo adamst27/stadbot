@@ -71,7 +71,7 @@ const Page = () => {
         </p>
       </div>
       <div
-        className="w-1/2 h-full bg-cover bg-bottom bg-no-repeat"
+        className="lg:block hidden w-1/2 h-full bg-cover bg-bottom bg-no-repeat"
         style={{ backgroundImage: 'url("/images/login.jpg")' }}
       ></div>
     </section>

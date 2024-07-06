@@ -25,11 +25,11 @@ const Display = ({ values }: { values: any }) => {
 
   const handleClick = async () => {
     if (chatId) {
-      const output = await sendInput(chatId, prompt);
+      const output = await sendInput(chatId, prompt, messages);
       setMessages((prev) => [...prev, { in: prompt, out: output as string }]);
     } else {
       const newChat = await startChat(prompt);
-      const output = await sendInput(newChat._id, prompt);
+      const output = await sendInput(newChat._id, prompt, messages);
       setMessages([{ in: prompt, out: output as string }]);
       router.push(`?chatId=${newChat._id}`);
     }

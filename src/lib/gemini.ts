@@ -7,7 +7,12 @@ import {
 const MODEL_NAME = "gemini-1.5-flash";
 const API_KEY = process.env.GEMINI_API_KEY as string;
 
-async function runChat(prompt: string, history?: any) {
+interface HistoryItem {
+  in: string;
+  out: string;
+}
+
+async function runChat(prompt: string, history: HistoryItem[] = []) {
   const genAI = new GoogleGenerativeAI(API_KEY);
   const model = genAI.getGenerativeModel({ model: MODEL_NAME });
 
@@ -40,8 +45,12 @@ async function runChat(prompt: string, history?: any) {
   const chat = model.startChat({
     generationConfig,
     safetySettings,
-    history: history ? [...history, prompt] : [],
+    history: history.flatMap((item: HistoryItem) => [
+      { role: "user", parts: [{ text: item.in }] },
+      { role: "model", parts: [{ text: item.out }] },
+    ]),
   });
+
   const result = await chat.sendMessage(prompt);
   const response = result.response;
   return response.text();
