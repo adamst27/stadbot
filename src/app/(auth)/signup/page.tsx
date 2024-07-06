@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -58,7 +58,12 @@ const Page = () => {
       if (res.ok) {
         const form = e.target;
         form.reset();
-        router.push("/");
+        await signIn("credentials", {
+          email,
+          password,
+          redirect: false,
+        });
+        router.push("/app");
       } else {
         console.log("User registration failed.");
       }
@@ -73,7 +78,7 @@ const Page = () => {
   };
   return (
     <section className="w-full h-screen flex  flex-row-reverse items-center bg-slate-950 text-white">
-      <div className="w-1/2 py-16 px-8 flex flex-col gap-8 h-full justify-center relative">
+      <div className="w-full lg:w-1/2 py-16 px-8 flex flex-col gap-8 h-full justify-center relative">
         <h1 className="text-5xl font-extrabold  text-left">Sign Up</h1>
         <div className="flex flex-col gap-4">
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -85,12 +90,12 @@ const Page = () => {
                   placeholder={input.placeholder}
                   name={input.name}
                   onChange={(e) => handleChange(e)}
-                  className="text-slate-600"
+                  className="text-black"
                 />
               </div>
             ))}
             <Button className="bg-primary  h-12 w-full" type="submit">
-              Login
+              SignUp
             </Button>
           </form>
         </div>
@@ -102,7 +107,7 @@ const Page = () => {
         </p>
       </div>
       <div
-        className="w-1/2 h-full bg-cover bg-center bg-no-repeat"
+        className="w-0 lg:w-1/2 h-full bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: 'url("/images/signup.jpg")' }}
       ></div>
     </section>

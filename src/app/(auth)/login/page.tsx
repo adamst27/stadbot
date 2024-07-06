@@ -46,6 +46,7 @@ const Page = () => {
                   type={input.type}
                   placeholder={input.placeholder}
                   name={input.name}
+                  className="text-black"
                   onChange={(e) => {
                     setData((prev) => {
                       return {
