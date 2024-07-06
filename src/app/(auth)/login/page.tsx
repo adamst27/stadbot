@@ -35,7 +35,7 @@ const Page = () => {
   });
   return (
     <section className="w-full h-screen flex flex-row items-center bg-slate-950 text-white">
-      <div className="w-1/2 py-16 px-8 flex flex-col gap-8 h-full justify-center relative">
+      <div className="w-full lg:w-1/2 py-16 px-8 flex flex-col gap-8 h-full justify-center relative">
         <h1 className="text-5xl font-extrabold  text-left">Login</h1>
         <div className="flex flex-col gap-4">
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -72,7 +72,7 @@ const Page = () => {
         </p>
       </div>
       <div
-        className="lg:block hidden w-1/2 h-full bg-cover bg-bottom bg-no-repeat"
+        className="w-0 lg:w-1/2 h-full bg-cover bg-bottom bg-no-repeat"
         style={{ backgroundImage: 'url("/images/login.jpg")' }}
       ></div>
     </section>
