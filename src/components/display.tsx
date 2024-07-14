@@ -60,7 +60,7 @@ const Display = ({ values }: { values: any }) => {
 
   return (
     <div className="flex flex-col h-screen bg-gradient-to-br from-gray-900 to-gray-800">
-      <div className="flex-1 overflow-y-auto p-6 space-y-4">
+      <div className="flex-1 overflow-y-auto p-6 space-y-4 pt-20">
         {messages.map((message, index) => (
           <div key={index} className="flex flex-col space-y-2">
             <div className="flex justify-end">
